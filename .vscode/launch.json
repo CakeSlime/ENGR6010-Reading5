@@ -2,6 +2,16 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Reading 5: classroom replay (saved models)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/classroom/demo.py",
+      "args": ["--trials", "3", "--rounds", "2", "--open-figure"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
       "name": "Reading 5: train and evaluate PPO",
       "type": "debugpy",
       "request": "launch",

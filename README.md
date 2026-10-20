@@ -7,6 +7,11 @@ It is an educational analogy to one joint of a Unitree Go2 or ANYmal, not a
 quadrupedal locomotion controller or a physical robot experiment. No robot,
 GPU, MuJoCo installation, or external service is required.
 
+Classroom materials are in [classroom/README_CLASSROOM.md](classroom/README_CLASSROOM.md):
+an editable 18-slide PowerPoint with speaker notes, a Word/PDF presenter script
+with 20 Q&As, and a repeatable saved-model demonstration that preserves the
+original experiment outputs.
+
 ## Install and run
 
 Use Python 3.11 or 3.12. From this project directory on Linux:

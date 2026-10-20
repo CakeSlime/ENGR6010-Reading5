@@ -1,0 +1,64 @@
+{
+  "validated_at_utc": "2026-10-20T21:11:48.402964+00:00",
+  "status": "passed",
+  "slides": 18,
+  "speaker_notes_with_complete_scripts": 18,
+  "guide_slide_scripts": 18,
+  "graduate_qa_entries": 20,
+  "core_16_slide_suggested_seconds": 830,
+  "all_slide_shapes_inside_canvas": true,
+  "all_slide_cues_present": true,
+  "all_guide_scripts_and_qa_present": true,
+  "pdf_page_counts": {
+    "Reading5_Presenter_Guide.pdf": 18,
+    "Reading5_Classroom_Presentation.pdf": 18
+  },
+  "slide_chart_images": {
+    "training_for_slides.png": {
+      "size_px": [
+        2772,
+        1045
+      ],
+      "dpi": [
+        219.9894,
+        219.9894
+      ]
+    },
+    "success_for_slides.png": {
+      "size_px": [
+        2772,
+        1034
+      ],
+      "dpi": [
+        219.9894,
+        219.9894
+      ]
+    },
+    "tracking_for_slides.png": {
+      "size_px": [
+        2772,
+        946
+      ],
+      "dpi": [
+        219.9894,
+        219.9894
+      ]
+    }
+  },
+  "original_experiment_source_sha256": "9355d6186c002f46a34d778542171c961ef90b8d9ccad66be9a4006edeb1928d",
+  "original_experiment_source_unchanged": true,
+  "source_data_sha256": {
+    "metrics.csv": "433f1d80f10005c8fc0ba8f38abc95cded1d1022bb65a69804127a988f7bd6c6",
+    "evaluation_episodes.csv": "1960723a5a01faddb0f528fc840e32815e25f5069c36e280ee0cb2b40f3bffac",
+    "evaluation_steps.csv": "1e084ff220da9b7637e55189b56fe3ef422e5f114a7f36fad96e254631e7845a",
+    "training_rewards.csv": "5f0381795fe3c1ea826d96f09ba3dee8c5d8df8af3edbef3f1827917fe085759"
+  },
+  "export_engine": "LibreOfficeDev 26.8.0.0.alpha0; headless PDF conversion passed",
+  "visual_inspection": "All 18 slide layouts inspected in rendered contact sheet. Final control-diagram and runtime slides inspected at full size after refinement. Presenter guide page flow reviewed; Q&A entries kept in four-question page groups.",
+  "scientific_review": "Independent review of all 18 scripts, 20 Q&As, and slide/guide text passed; actual SB3 data only.",
+  "limitations": [
+    "Microsoft PowerPoint/Word desktop UI not opened in cloud.",
+    "Windows launcher and automatic image-viewer opening not executed on Linux.",
+    "Python replay tested on CPU; helper validation recorded separately in demo_validation.json."
+  ]
+}

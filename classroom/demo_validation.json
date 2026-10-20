@@ -1,0 +1,341 @@
+{
+  "status": "passed",
+  "scope": "Actual CPU saved-model evaluation; no training or root-output replacement. Generated run folders are local validation outputs and need not ship.",
+  "demo_source_sha256": "4da8a16ed74905b83770c03256eb2d81877d6b7f18c0718c62b8a182188ebefa",
+  "tests": [
+    {
+      "test": "quick_replay_two_identical_rounds",
+      "command": "MPLCONFIGDIR=/workspace/.cache/reading5/matplotlib XDG_CACHE_HOME=/workspace/.cache/reading5 /workspace/.venvs/reading5/bin/python classroom/demo.py --trials 3 --rounds 2",
+      "observed_exit_code": 0,
+      "runtime_seconds_including_imports": 7.064686469000208,
+      "run_folder_relative": "classroom/demo_runs/20261020_210231_164701_UTC",
+      "demo_record": {
+        "mode": "deterministic saved-model replay; no retraining",
+        "trials_per_condition": 3,
+        "rounds": 2,
+        "seeds": [
+          1000,
+          1001,
+          1002
+        ],
+        "same_seeds_reused_between_rounds": true,
+        "repeatability_checked": true,
+        "success_rmse_rad": 0.32,
+        "runtime_seconds": 7.064686469000208,
+        "saved_model_sha256": {
+          "fixed": "22d7ff52d4121448430568b190457833d7fd3ca3684985e4924e769b2ebe85e7",
+          "random": "e93f5749a4f2a6680dc6a05a7c8d8f862c19259f4e90f8d929667aad7f047498"
+        }
+      },
+      "csv_comparisons": [
+        {
+          "kind": "episodes",
+          "round_01_sha256": "79b220bf6d480f391bb7dff368110e7a239adedb4008498ce1414439c7e6471b",
+          "round_02_sha256": "79b220bf6d480f391bb7dff368110e7a239adedb4008498ce1414439c7e6471b",
+          "byte_identical": true
+        },
+        {
+          "kind": "steps",
+          "round_01_sha256": "93caacb96732f5fa80014e9f8908c26d1b2eb0756b1066cf6dd846eaa024bb02",
+          "round_02_sha256": "93caacb96732f5fa80014e9f8908c26d1b2eb0756b1066cf6dd846eaa024bb02",
+          "byte_identical": true
+        },
+        {
+          "kind": "metrics",
+          "round_01_sha256": "9ea1a6fda9d22445b184e909b90d666906888ccf436fa5c6aee572d73dc22703",
+          "round_02_sha256": "9ea1a6fda9d22445b184e909b90d666906888ccf436fa5c6aee572d73dc22703",
+          "byte_identical": true
+        }
+      ]
+    },
+    {
+      "test": "quick_replay_two_identical_rounds",
+      "command": "MPLCONFIGDIR=/workspace/.cache/reading5/matplotlib XDG_CACHE_HOME=/workspace/.cache/reading5 /workspace/.venvs/reading5/bin/python classroom/demo.py --trials 3 --rounds 2",
+      "observed_exit_code": 0,
+      "runtime_seconds_including_imports": 5.822068754000156,
+      "run_folder_relative": "classroom/demo_runs/20261020_210407_862963_UTC",
+      "demo_record": {
+        "mode": "deterministic saved-model replay; no retraining",
+        "trials_per_condition": 3,
+        "rounds": 2,
+        "seeds": [
+          1000,
+          1001,
+          1002
+        ],
+        "same_seeds_reused_between_rounds": true,
+        "repeatability_checked": true,
+        "success_rmse_rad": 0.32,
+        "runtime_seconds": 5.822068754000156,
+        "saved_model_sha256": {
+          "fixed": "22d7ff52d4121448430568b190457833d7fd3ca3684985e4924e769b2ebe85e7",
+          "random": "e93f5749a4f2a6680dc6a05a7c8d8f862c19259f4e90f8d929667aad7f047498"
+        }
+      },
+      "csv_comparisons": [
+        {
+          "kind": "episodes",
+          "round_01_sha256": "79b220bf6d480f391bb7dff368110e7a239adedb4008498ce1414439c7e6471b",
+          "round_02_sha256": "79b220bf6d480f391bb7dff368110e7a239adedb4008498ce1414439c7e6471b",
+          "byte_identical": true
+        },
+        {
+          "kind": "steps",
+          "round_01_sha256": "93caacb96732f5fa80014e9f8908c26d1b2eb0756b1066cf6dd846eaa024bb02",
+          "round_02_sha256": "93caacb96732f5fa80014e9f8908c26d1b2eb0756b1066cf6dd846eaa024bb02",
+          "byte_identical": true
+        },
+        {
+          "kind": "metrics",
+          "round_01_sha256": "9ea1a6fda9d22445b184e909b90d666906888ccf436fa5c6aee572d73dc22703",
+          "round_02_sha256": "9ea1a6fda9d22445b184e909b90d666906888ccf436fa5c6aee572d73dc22703",
+          "byte_identical": true
+        }
+      ]
+    },
+    {
+      "test": "full_paired_evaluation_replay",
+      "command": "MPLCONFIGDIR=/workspace/.cache/reading5/matplotlib XDG_CACHE_HOME=/workspace/.cache/reading5 /workspace/.venvs/reading5/bin/python classroom/demo.py --trials 30 --rounds 1",
+      "observed_exit_code": 0,
+      "runtime_seconds_including_imports": 9.318764181999995,
+      "run_folder_relative": "classroom/demo_runs/20261020_210242_861818_UTC",
+      "demo_record": {
+        "mode": "deterministic saved-model replay; no retraining",
+        "trials_per_condition": 30,
+        "rounds": 1,
+        "seeds": [
+          1000,
+          1001,
+          1002,
+          1003,
+          1004,
+          1005,
+          1006,
+          1007,
+          1008,
+          1009,
+          1010,
+          1011,
+          1012,
+          1013,
+          1014,
+          1015,
+          1016,
+          1017,
+          1018,
+          1019,
+          1020,
+          1021,
+          1022,
+          1023,
+          1024,
+          1025,
+          1026,
+          1027,
+          1028,
+          1029
+        ],
+        "same_seeds_reused_between_rounds": true,
+        "repeatability_checked": false,
+        "success_rmse_rad": 0.32,
+        "runtime_seconds": 9.318764181999995,
+        "saved_model_sha256": {
+          "fixed": "22d7ff52d4121448430568b190457833d7fd3ca3684985e4924e769b2ebe85e7",
+          "random": "e93f5749a4f2a6680dc6a05a7c8d8f862c19259f4e90f8d929667aad7f047498"
+        }
+      },
+      "csv_comparisons": [
+        {
+          "original": "evaluation_episodes.csv",
+          "original_sha256": "1960723a5a01faddb0f528fc840e32815e25f5069c36e280ee0cb2b40f3bffac",
+          "replay_sha256": "1960723a5a01faddb0f528fc840e32815e25f5069c36e280ee0cb2b40f3bffac",
+          "byte_identical": true
+        },
+        {
+          "original": "evaluation_steps.csv",
+          "original_sha256": "1e084ff220da9b7637e55189b56fe3ef422e5f114a7f36fad96e254631e7845a",
+          "replay_sha256": "1e084ff220da9b7637e55189b56fe3ef422e5f114a7f36fad96e254631e7845a",
+          "byte_identical": true
+        },
+        {
+          "original": "metrics.csv",
+          "original_sha256": "433f1d80f10005c8fc0ba8f38abc95cded1d1022bb65a69804127a988f7bd6c6",
+          "replay_sha256": "433f1d80f10005c8fc0ba8f38abc95cded1d1022bb65a69804127a988f7bd6c6",
+          "byte_identical": true
+        }
+      ]
+    }
+  ],
+  "input_validation_checks": [
+    {
+      "arguments": [
+        "--trials",
+        "1"
+      ],
+      "expected_exit_code": 2,
+      "observed_exit_code": 2,
+      "validation_error_reported": true
+    },
+    {
+      "arguments": [
+        "--rounds",
+        "0"
+      ],
+      "expected_exit_code": 2,
+      "observed_exit_code": 2,
+      "validation_error_reported": true
+    },
+    {
+      "arguments": [
+        "--seed",
+        "-1"
+      ],
+      "expected_exit_code": 2,
+      "observed_exit_code": 2,
+      "validation_error_reported": true
+    }
+  ],
+  "help_command_exit_code": 0,
+  "original_artifact_integrity_checks": [
+    {
+      "original_artifact": "reading5_sim2real_ppo.py",
+      "expected_sha256": "9355d6186c002f46a34d778542171c961ef90b8d9ccad66be9a4006edeb1928d",
+      "current_sha256": "9355d6186c002f46a34d778542171c961ef90b8d9ccad66be9a4006edeb1928d",
+      "unchanged": true
+    },
+    {
+      "original_artifact": "fig1_training_rewards.png",
+      "expected_sha256": "1b7e6f276a0363d11787c6260daa2d3c3779920ee043116f456659c1c5a7d44b",
+      "current_sha256": "1b7e6f276a0363d11787c6260daa2d3c3779920ee043116f456659c1c5a7d44b",
+      "unchanged": true
+    },
+    {
+      "original_artifact": "fig2_real_rollouts.png",
+      "expected_sha256": "75db81059f7bdc7919b1f98327d4624774129178e496cf478f71c934229402e2",
+      "current_sha256": "75db81059f7bdc7919b1f98327d4624774129178e496cf478f71c934229402e2",
+      "unchanged": true
+    },
+    {
+      "original_artifact": "fig3_success_rates.png",
+      "expected_sha256": "5df1d22ab2b1d2b37755ad8f9941fd7a40d223adac75939c5574f209ba5e7769",
+      "current_sha256": "5df1d22ab2b1d2b37755ad8f9941fd7a40d223adac75939c5574f209ba5e7769",
+      "unchanged": true
+    },
+    {
+      "original_artifact": "metrics.csv",
+      "expected_sha256": "433f1d80f10005c8fc0ba8f38abc95cded1d1022bb65a69804127a988f7bd6c6",
+      "current_sha256": "433f1d80f10005c8fc0ba8f38abc95cded1d1022bb65a69804127a988f7bd6c6",
+      "unchanged": true
+    },
+    {
+      "original_artifact": "training_rewards.csv",
+      "expected_sha256": "5f0381795fe3c1ea826d96f09ba3dee8c5d8df8af3edbef3f1827917fe085759",
+      "current_sha256": "5f0381795fe3c1ea826d96f09ba3dee8c5d8df8af3edbef3f1827917fe085759",
+      "unchanged": true
+    },
+    {
+      "original_artifact": "evaluation_episodes.csv",
+      "expected_sha256": "1960723a5a01faddb0f528fc840e32815e25f5069c36e280ee0cb2b40f3bffac",
+      "current_sha256": "1960723a5a01faddb0f528fc840e32815e25f5069c36e280ee0cb2b40f3bffac",
+      "unchanged": true
+    },
+    {
+      "original_artifact": "evaluation_steps.csv",
+      "expected_sha256": "1e084ff220da9b7637e55189b56fe3ef422e5f114a7f36fad96e254631e7845a",
+      "current_sha256": "1e084ff220da9b7637e55189b56fe3ef422e5f114a7f36fad96e254631e7845a",
+      "unchanged": true
+    },
+    {
+      "original_artifact": "policy_fixed.zip",
+      "expected_sha256": "22d7ff52d4121448430568b190457833d7fd3ca3684985e4924e769b2ebe85e7",
+      "current_sha256": "22d7ff52d4121448430568b190457833d7fd3ca3684985e4924e769b2ebe85e7",
+      "unchanged": true
+    },
+    {
+      "original_artifact": "policy_random.zip",
+      "expected_sha256": "e93f5749a4f2a6680dc6a05a7c8d8f862c19259f4e90f8d929667aad7f047498",
+      "current_sha256": "e93f5749a4f2a6680dc6a05a7c8d8f862c19259f4e90f8d929667aad7f047498",
+      "unchanged": true
+    }
+  ],
+  "figure_checks": [
+    {
+      "relative_file": "classroom/demo_runs/20261020_210231_164701_UTC/round_01_heldout_tracking.png",
+      "dpi": [
+        250.01219999999998,
+        250.01219999999998
+      ],
+      "pixels": [
+        3000,
+        1200
+      ],
+      "png_integrity": "pass",
+      "sha256": "1a06e62cbf2fc6bfcc0929c66575536d9756d4beef06e02ed5d4ca7d0c54bcf9"
+    },
+    {
+      "relative_file": "classroom/demo_runs/20261020_210231_164701_UTC/round_02_heldout_tracking.png",
+      "dpi": [
+        250.01219999999998,
+        250.01219999999998
+      ],
+      "pixels": [
+        3000,
+        1200
+      ],
+      "png_integrity": "pass",
+      "sha256": "1a06e62cbf2fc6bfcc0929c66575536d9756d4beef06e02ed5d4ca7d0c54bcf9"
+    },
+    {
+      "relative_file": "classroom/demo_runs/20261020_210242_861818_UTC/round_01_heldout_tracking.png",
+      "dpi": [
+        250.01219999999998,
+        250.01219999999998
+      ],
+      "pixels": [
+        3000,
+        1200
+      ],
+      "png_integrity": "pass",
+      "sha256": "1a06e62cbf2fc6bfcc0929c66575536d9756d4beef06e02ed5d4ca7d0c54bcf9"
+    },
+    {
+      "relative_file": "classroom/demo_runs/20261020_210407_862963_UTC/round_01_heldout_tracking.png",
+      "dpi": [
+        250.01219999999998,
+        250.01219999999998
+      ],
+      "pixels": [
+        3000,
+        1200
+      ],
+      "png_integrity": "pass",
+      "sha256": "1a06e62cbf2fc6bfcc0929c66575536d9756d4beef06e02ed5d4ca7d0c54bcf9"
+    },
+    {
+      "relative_file": "classroom/demo_runs/20261020_210407_862963_UTC/round_02_heldout_tracking.png",
+      "dpi": [
+        250.01219999999998,
+        250.01219999999998
+      ],
+      "pixels": [
+        3000,
+        1200
+      ],
+      "png_integrity": "pass",
+      "sha256": "1a06e62cbf2fc6bfcc0929c66575536d9756d4beef06e02ed5d4ca7d0c54bcf9"
+    }
+  ],
+  "helper_review": {
+    "blocking_bugs_found": false,
+    "minimum_two_trials": "Prevents undefined sample SD for one episode per condition.",
+    "backend_initialization": "Explicit pyplot import moved after the experiment module selects Agg; final quick replay rechecked after this import-order-only change.",
+    "run_isolation": "Every invocation creates a new UTC timestamped output folder.",
+    "repeated_round_interpretation": "Repeated seeds demonstrate execution repeatability, not additional independent statistical trials."
+  },
+  "not_executed": [
+    "Windows .cmd launcher",
+    "Windows GUI image opening via --open-figure",
+    "PowerPoint or VS Code desktop GUI interaction"
+  ],
+  "runtime_limitations": "Observed Linux cloud wall-clock times include imports. Student laptop timing and exact numeric equality across operating systems/Torch builds are not guaranteed."
+}
