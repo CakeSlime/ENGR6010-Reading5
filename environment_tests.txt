@@ -1,0 +1,13 @@
+test_delay_is_exactly_four_control_intervals (test_experiment.JointTests.test_delay_is_exactly_four_control_intervals) ... ok
+test_episode_horizon_and_predeclared_success_threshold (test_experiment.JointTests.test_episode_horizon_and_predeclared_success_threshold) ... ok
+test_gymnasium_api (test_experiment.JointTests.test_gymnasium_api) ... ok
+test_pd_semi_implicit_euler_and_reward_equation (test_experiment.JointTests.test_pd_semi_implicit_euler_and_reward_equation) ... ok
+test_randomized_parameters_and_held_out_physics (test_experiment.JointTests.test_randomized_parameters_and_held_out_physics) ... ok
+test_reference_sequence_is_matched_across_domains (test_experiment.JointTests.test_reference_sequence_is_matched_across_domains) ... ok
+test_safety_limit_terminates_episode (test_experiment.JointTests.test_safety_limit_terminates_episode) ... ok
+test_seed_reproduces_observations_physics_and_steps (test_experiment.JointTests.test_seed_reproduces_observations_physics_and_steps) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.047s
+
+OK

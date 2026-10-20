@@ -1,0 +1,56 @@
+Looking in indexes: https://download.pytorch.org/whl/cpu
+Requirement already satisfied: torch==2.7.1+cpu in /workspace/.venvs/reading5/lib/python3.12/site-packages (2.7.1+cpu)
+Requirement already satisfied: filelock in /workspace/.venvs/reading5/lib/python3.12/site-packages (from torch==2.7.1+cpu) (3.32.3)
+Requirement already satisfied: typing-extensions>=4.10.0 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from torch==2.7.1+cpu) (4.16.0)
+Requirement already satisfied: setuptools in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from torch==2.7.1+cpu) (84.0.0)
+Requirement already satisfied: sympy>=1.13.3 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from torch==2.7.1+cpu) (1.14.0)
+Requirement already satisfied: networkx in /workspace/.venvs/reading5/lib/python3.12/site-packages (from torch==2.7.1+cpu) (3.6.1)
+Requirement already satisfied: jinja2 in /workspace/.venvs/reading5/lib/python3.12/site-packages (from torch==2.7.1+cpu) (3.1.6)
+Requirement already satisfied: fsspec in /workspace/.venvs/reading5/lib/python3.12/site-packages (from torch==2.7.1+cpu) (2026.7.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from sympy>=1.13.3->torch==2.7.1+cpu) (1.3.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /workspace/.venvs/reading5/lib/python3.12/site-packages (from jinja2->torch==2.7.1+cpu) (3.0.3)
+Requirement already satisfied: numpy==2.3.5 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from -r requirements.txt (line 1)) (2.3.5)
+Requirement already satisfied: matplotlib==3.10.8 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from -r requirements.txt (line 2)) (3.10.8)
+Requirement already satisfied: pandas==2.2.3 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from -r requirements.txt (line 3)) (2.2.3)
+Requirement already satisfied: gymnasium==1.2.2 in /workspace/.venvs/reading5/lib/python3.12/site-packages (from -r requirements.txt (line 4)) (1.2.2)
+Requirement already satisfied: stable-baselines3==2.7.1 in /workspace/.venvs/reading5/lib/python3.12/site-packages (from -r requirements.txt (line 5)) (2.7.1)
+Requirement already satisfied: torch==2.7.1 in /workspace/.venvs/reading5/lib/python3.12/site-packages (from -r requirements.txt (line 6)) (2.7.1+cpu)
+Requirement already satisfied: contourpy>=1.0.1 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from matplotlib==3.10.8->-r requirements.txt (line 2)) (1.3.3)
+Requirement already satisfied: cycler>=0.10 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from matplotlib==3.10.8->-r requirements.txt (line 2)) (0.12.1)
+Requirement already satisfied: fonttools>=4.22.0 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from matplotlib==3.10.8->-r requirements.txt (line 2)) (4.61.1)
+Requirement already satisfied: kiwisolver>=1.3.1 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from matplotlib==3.10.8->-r requirements.txt (line 2)) (1.4.9)
+Requirement already satisfied: packaging>=20.0 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from matplotlib==3.10.8->-r requirements.txt (line 2)) (26.3)
+Requirement already satisfied: pillow>=8 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from matplotlib==3.10.8->-r requirements.txt (line 2)) (12.3.0)
+Requirement already satisfied: pyparsing>=3 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from matplotlib==3.10.8->-r requirements.txt (line 2)) (3.3.2)
+Requirement already satisfied: python-dateutil>=2.7 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from matplotlib==3.10.8->-r requirements.txt (line 2)) (2.9.0.post0)
+Requirement already satisfied: pytz>=2020.1 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from pandas==2.2.3->-r requirements.txt (line 3)) (2026.5)
+Requirement already satisfied: tzdata>=2022.7 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from pandas==2.2.3->-r requirements.txt (line 3)) (2026.5)
+Requirement already satisfied: cloudpickle>=1.2.0 in /workspace/.venvs/reading5/lib/python3.12/site-packages (from gymnasium==1.2.2->-r requirements.txt (line 4)) (3.1.2)
+Requirement already satisfied: typing-extensions>=4.3.0 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from gymnasium==1.2.2->-r requirements.txt (line 4)) (4.16.0)
+Requirement already satisfied: farama-notifications>=0.0.1 in /workspace/.venvs/reading5/lib/python3.12/site-packages (from gymnasium==1.2.2->-r requirements.txt (line 4)) (0.0.6)
+Requirement already satisfied: filelock in /workspace/.venvs/reading5/lib/python3.12/site-packages (from torch==2.7.1->-r requirements.txt (line 6)) (3.32.3)
+Requirement already satisfied: setuptools in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from torch==2.7.1->-r requirements.txt (line 6)) (84.0.0)
+Requirement already satisfied: sympy>=1.13.3 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from torch==2.7.1->-r requirements.txt (line 6)) (1.14.0)
+Requirement already satisfied: networkx in /workspace/.venvs/reading5/lib/python3.12/site-packages (from torch==2.7.1->-r requirements.txt (line 6)) (3.6.1)
+Requirement already satisfied: jinja2 in /workspace/.venvs/reading5/lib/python3.12/site-packages (from torch==2.7.1->-r requirements.txt (line 6)) (3.1.6)
+Requirement already satisfied: fsspec in /workspace/.venvs/reading5/lib/python3.12/site-packages (from torch==2.7.1->-r requirements.txt (line 6)) (2026.7.0)
+Requirement already satisfied: six>=1.5 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from python-dateutil>=2.7->matplotlib==3.10.8->-r requirements.txt (line 2)) (1.17.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages (from sympy>=1.13.3->torch==2.7.1->-r requirements.txt (line 6)) (1.3.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /workspace/.venvs/reading5/lib/python3.12/site-packages (from jinja2->torch==2.7.1->-r requirements.txt (line 6)) (3.0.3)
+
+[notice] A new release of pip is available: 25.0.1 -> 26.2.2
+[notice] To update, run: python -m pip install --upgrade pip
+No broken requirements found.
+test_delay_is_exactly_four_control_intervals (test_experiment.JointTests.test_delay_is_exactly_four_control_intervals) ... ok
+test_episode_horizon_and_predeclared_success_threshold (test_experiment.JointTests.test_episode_horizon_and_predeclared_success_threshold) ... ok
+test_gymnasium_api (test_experiment.JointTests.test_gymnasium_api) ... ok
+test_pd_semi_implicit_euler_and_reward_equation (test_experiment.JointTests.test_pd_semi_implicit_euler_and_reward_equation) ... ok
+test_randomized_parameters_and_held_out_physics (test_experiment.JointTests.test_randomized_parameters_and_held_out_physics) ... ok
+test_reference_sequence_is_matched_across_domains (test_experiment.JointTests.test_reference_sequence_is_matched_across_domains) ... ok
+test_safety_limit_terminates_episode (test_experiment.JointTests.test_safety_limit_terminates_episode) ... ok
+test_seed_reproduces_observations_physics_and_steps (test_experiment.JointTests.test_seed_reproduces_observations_physics_and_steps) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.038s
+
+OK

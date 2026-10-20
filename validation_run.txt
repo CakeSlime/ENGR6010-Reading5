@@ -1,0 +1,9 @@
+check_env: PASS (all three physics modes)
+Trained fixed: 12288 timesteps, 122 complete episodes
+Trained random: 12288 timesteps, 122 complete episodes
+policy environment  episodes  reward_mean  reward_std  rmse_mean_rad  rmse_std_rad  success_pct  success_ci_low_pct  success_ci_high_pct
+ fixed       fixed        30    93.418741    2.644794       0.102206      0.022482   100.000000           88.648291           100.000000
+ fixed        real        30    34.081792   26.051629       0.329892      0.073410    46.666667           30.232127            63.857987
+random       fixed        30    93.665565    2.620787       0.103707      0.023452   100.000000           88.648291           100.000000
+random        real        30    70.969814   12.653052       0.225025      0.050533    96.666667           83.329249            99.409156
+Runtime: 27.72 s; training: 20.45 s. Outputs: /workspace/ENGR6010-Reading5

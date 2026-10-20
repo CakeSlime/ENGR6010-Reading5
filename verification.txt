@@ -1,0 +1,13 @@
+Auditing 120 evaluation episodes / 12,000 control steps, recorded training, figures, and saved-model replay.
+test_complete_paired_design_and_finite_records (__main__.OutputAudit.test_complete_paired_design_and_finite_records) ... ok
+test_matched_reference_trajectories_and_physical_conditions (__main__.OutputAudit.test_matched_reference_trajectories_and_physical_conditions) ... ok
+test_metrics_recomputed_without_production_summary_function (__main__.OutputAudit.test_metrics_recomputed_without_production_summary_function) ... ok
+test_raw_steps_reproduce_episode_reward_rmse_and_success (__main__.OutputAudit.test_raw_steps_reproduce_episode_reward_rmse_and_success) ... ok
+test_real_training_records_and_source_provenance (__main__.OutputAudit.test_real_training_records_and_source_provenance) ... ok
+test_saved_models_replay_logged_actions_and_rollouts (__main__.OutputAudit.test_saved_models_replay_logged_actions_and_rollouts) ... ok
+test_three_valid_high_resolution_figures (__main__.OutputAudit.test_three_valid_high_resolution_figures) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.750s
+
+OK

@@ -1,0 +1,27 @@
+{
+  "description": "Identical-seed rerun after changing only Figure 3 legend placement; no protocol or learning changes.",
+  "first_run_seconds": 31.58765073699999,
+  "final_run_seconds": 27.71942971200002,
+  "first_training_seconds": 21.779769875,
+  "final_training_seconds": 20.44628684600002,
+  "first_source_sha256": "66f567142f2a686687d57f1f837290c5f262d4a2585f9830f5b58c2c50af0c84",
+  "final_source_sha256": "9355d6186c002f46a34d778542171c961ef90b8d9ccad66be9a4006edeb1928d",
+  "checks": {
+    "metrics.csv": {
+      "sha256": "433f1d80f10005c8fc0ba8f38abc95cded1d1022bb65a69804127a988f7bd6c6",
+      "identical_between_runs": true
+    },
+    "evaluation_episodes.csv": {
+      "sha256": "1960723a5a01faddb0f528fc840e32815e25f5069c36e280ee0cb2b40f3bffac",
+      "identical_between_runs": true
+    },
+    "evaluation_steps.csv": {
+      "sha256": "1e084ff220da9b7637e55189b56fe3ef422e5f114a7f36fad96e254631e7845a",
+      "identical_between_runs": true
+    },
+    "training_rewards.csv": {
+      "sha256": "5f0381795fe3c1ea826d96f09ba3dee8c5d8df8af3edbef3f1827917fe085759",
+      "identical_between_runs": true
+    }
+  }
+}

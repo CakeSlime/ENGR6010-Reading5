@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Reading 5: train and evaluate PPO",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/reading5_sim2real_ppo.py",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ]
+}
