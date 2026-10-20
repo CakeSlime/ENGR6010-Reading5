@@ -1,289 +1,97 @@
 {
-  "opening_note": "Presenter framing: speak as a mechatronics engineering student explaining an educational experiment you can inspect, run, and defend. The included results come from the verified cloud execution, not a physical robot. Use the same evidence throughout: seed 42, 12,288 training steps per policy, 30 distinct paired evaluation seeds per condition, and the predeclared full-episode RMSE < 0.32 rad criterion. A short live replay reloads the saved policies; it does not train them or add independent evidence. The 16-slide core is approximately 14 minutes including the planned replay, followed by questions. Slides 17 and 18 are reference/backup material. Rehearse the commands before class and retain the static figures as an honestly labeled fallback.",
+  "opening_note": "A short, demo-led student presentation: explain one joint and two PPO policies, run the actual code, show the generated graphs and results, then connect the finding to the readings and a robotics application. Suggested duration is about five to six minutes including a 60\u201390 second code demonstration. The included figures are verified cloud results; clearly identify any new local results. Success remains a full five-second episode with RMSE < 0.32 rad and no safety termination. The main program retrains and replaces its generated outputs; the optional saved-model replay preserves them.",
   "slides": [
     {
       "number": 1,
-      "title": "Can varied training physics improve transfer?",
-      "cue": "My question is whether varied training physics helps a controller handle an unfamiliar simulated joint.",
-      "seconds": 40,
-      "script": "For my Reading 5 project, I investigated a practical question: can a learned controller become more robust when its training simulation changes from episode to episode? I built a one-degree-of-freedom joint inspired by the control problems inside quadrupedal robots such as Go2 and ANYmal. Two PPO policies choose target angles for the same PD controller. One trains with fixed physics, and the other trains with randomized physics. I then compare them under nominal and unfamiliar simulated conditions. This is an educational simulation study, not a physical robot experiment.",
-      "point_to": "Point to the project question, then the fixed-versus-randomized comparison.",
-      "transition": "First, I will connect that question to the mechanical, electrical, and control systems in a robot."
+      "title": "What am I demonstrating?",
+      "cue": "Can training with varied physics help a joint controller handle an unfamiliar environment?",
+      "seconds": 30,
+      "script": "My project tests whether varied training physics improves a learned controller's robustness. I model one robotic joint, where a PPO policy chooses a target angle and a PD controller supplies the torque. One policy trains with fixed physics; the other experiences randomized inertia, friction, and delay. I compare their joint tracking in nominal and unfamiliar simulations.",
+      "point_to": "Point to the single joint, the fixed-physics policy, and the randomized-physics policy.",
+      "transition": "I will run the program and briefly show where that comparison happens."
     },
     {
       "number": 2,
-      "title": "Why this is a mechatronics problem",
-      "cue": "A useful controller must work with the motor, the sensors, and the mechanical system together.",
-      "seconds": 45,
-      "script": "As a mechatronics student, I see the reality gap as an interaction between the mechanical plant, actuator behavior, sensing, and software. A heavier effective joint responds differently to torque. Friction changes damping, actuator latency delays corrections, and measurement noise distorts feedback. A policy trained against only one ideal combination can depend too strongly on that combination. My simplified model makes these effects visible without needing a complete walking robot. The engineering motivation is to develop a controller that tolerates uncertainty, while being honest about which physical effects the demonstration leaves out.",
-      "point_to": "Trace the mechanical, actuator, sensor, and software blocks.",
-      "transition": "The control architecture separates the policy's target decision from the actuator torque calculation."
+      "title": "Run the code and follow the workflow",
+      "cue": "The program builds the joint, trains two policies, evaluates both, and saves the graphs.",
+      "seconds": 90,
+      "script": "I run reading5_sim2real_ppo.py using the project's Python environment. In Joint.step, the policy's angle target becomes a saturated PD torque, then the joint dynamics advance. In train, Stable-Baselines3 PPO learns from tracking rewards. The main function checks the environment, trains both policies, evaluates thirty matched episodes per policy and condition, prints the metrics, and creates three graphs. The saved run took about twenty-eight seconds on the cloud CPU.",
+      "point_to": "Run .\\.venv\\Scripts\\python.exe reading5_sim2real_ppo.py. Show Joint.step and train while it runs, then point to the terminal results and generated PNGs.",
+      "transition": "The graphs make the learning and tracking behavior easier to interpret."
     },
     {
       "number": 3,
-      "title": "PPO chooses a target; PD supplies torque",
-      "cue": "The policy decides where to move; the PD controller computes the torque needed to move there.",
+      "title": "Does the joint follow the target?",
+      "cue": "The dashed line is the desired angle; the colored line shows what the joint does.",
       "seconds": 55,
-      "script": "The policy action is a target joint angle bounded between minus one and plus one radian. That target passes through a delay queue before reaching the PD controller. The controller uses proportional position error and derivative velocity feedback, then clips commanded torque to plus or minus twelve newton metres. The dynamics update the true joint state, and noisy measurements return to both the policy and PD feedback. This structure connects reinforcement learning to a familiar control loop. In this educational code, both the policy and PD calculation update every fifty milliseconds; I am not modeling a separate high-frequency motor controller.",
-      "point_to": "Follow the target-angle arrow, delay queue, PD equation, and feedback loop.",
-      "transition": "Next, I will show exactly what the environment observes and how its dynamics advance."
+      "script": "The terminal shows evaluation statistics, and the program also saves the training-reward graph. Here I focus on the held-out tracking plot. The dashed line is the desired angle; the colored line is the joint's actual angle. The randomized policy tracks more smoothly in this example. Both policies pass this seed, so overall success needs all thirty trials.",
+      "point_to": "Briefly open fig1_training_rewards.png during the live run, then show the full tracking plot. Identify desired versus actual angle; seed 1000 is one preselected example.",
+      "transition": "The success-rate graph summarizes all thirty evaluation trials per condition."
     },
     {
       "number": 4,
-      "title": "A transparent Gymnasium joint environment",
-      "cue": "The model is small enough that we can inspect every observation, force balance, and integration step.",
+      "title": "What do the results mean?",
+      "cue": "Randomization improved held-out performance for this policy pair; both policies succeeded in nominal simulation.",
       "seconds": 50,
-      "script": "The environment observation contains measured angle, measured angular velocity, the current reference, the reference one hundred fifty milliseconds ahead, and the latest policy target. The preview is allowed because this is a prescribed trajectory, not an unknown future sensor measurement. Dynamics follow inertia times acceleration equals actuator torque minus viscous friction. Semi-implicit Euler updates velocity first, then angle using the new velocity. An episode lasts one hundred steps, or five simulated seconds, unless position or velocity exceeds the stated safety limits. Gymnasium reset and step methods are checked with Stable-Baselines3 before training.",
-      "point_to": "Point to the observation vector, Euler update, and terminated-versus-truncated conditions.",
-      "transition": "Those states and torques also define the tracking reward and the separate success criterion."
+      "script": "Both policies succeeded in all thirty nominal trials. In the unfamiliar simulation, the fixed policy succeeded in fourteen of thirty trials, compared with twenty-nine of thirty for the randomized policy. Mean tracking RMSE decreased from 0.3299 to 0.2250 radians. This supports better robustness for this trained policy pair, while one training seed and simplified physics limit the conclusion.",
+      "point_to": "Point to 14/30 versus 29/30, the held-out RMSE values, and the nominal 100% bars. Success requires RMSE below 0.32 rad for a full safe episode.",
+      "transition": "That result illustrates the sim-to-real ideas discussed in the assigned readings."
     },
     {
       "number": 5,
-      "title": "Reward encourages tracking; success is predefined",
-      "cue": "The reward guides learning; the fixed RMSE threshold judges the final behavior.",
-      "seconds": 55,
-      "script": "The step reward starts at one and subtracts three costs. Five times squared tracking error emphasizes accuracy. The squared-velocity penalty discourages unnecessarily fast or oscillatory motion, and the squared-torque penalty discourages control effort. I score these terms using the true simulated state, while the policy sees noisy measurements. Success is defined separately: complete the full five-second episode without safety termination and achieve RMSE strictly below zero point three two radians. That threshold came from the original program and was retained before training. It is an educational tolerance, approximately eighteen degrees, rather than a real robot accuracy specification.",
-      "point_to": "Identify each reward term, then underline the strict RMSE < 0.32 rad condition.",
-      "transition": "To make the comparison meaningful, both policies must share the learning setup and scoring rules."
+      "title": "How does this connect to Reading 5?",
+      "cue": "The readings connect randomized simulation, policy learning, and the gap between a model and a robot.",
+      "seconds": 50,
+      "script": "Tan and colleagues motivate randomized simulation and careful actuator modeling for robot transfer. Zhao and colleagues place these methods within the broader reality-gap problem. Sutton and Barto explain policy-gradient foundations; PPO is the specific clipped-surrogate actor\u2013critic method used here. MuJoCo represents richer multibody and contact simulation. My simple joint illustrates these ideas without reproducing full robot physics.",
+      "point_to": "Point to each source and its one-line connection. MuJoCo is a reference connection, not a dependency used by this program.",
+      "transition": "A practical application is a robot joint whose physical behavior changes during use."
     },
     {
       "number": 6,
-      "title": "Matched PPO training conditions",
-      "cue": "I changed the training physics distribution while keeping the other experimental choices consistent.",
-      "seconds": 55,
-      "script": "Both controllers use Stable-Baselines3 PPO with the same network architecture, seed, reward, reference-trajectory sequence, and training budget. Each policy receives twelve thousand two hundred eighty-eight environment steps, exactly forty-eight PPO rollouts of two hundred fifty-six steps. The hidden-layer architecture is thirty-two by thirty-two, with identical learning rate, batch size, update epochs, and discount factor. PPO is a particular actor-critic policy-gradient method using a clipped surrogate learning objective. It is not synonymous with every policy-gradient method, and its learning-objective clipping is different from the torque saturation inside the joint environment.",
-      "point_to": "Point across the matched settings, then distinguish PPO clipping from actuator saturation.",
-      "transition": "The intended difference is the physical parameter distribution seen during training."
-    },
-    {
-      "number": 7,
-      "title": "Nominal, randomized, and held-out physics",
-      "cue": "Randomization covers varied training joints; the held-out joint deliberately exceeds those ranges.",
-      "seconds": 55,
-      "script": "Fixed training uses inertia scale one, viscous friction zero point two, and no target-command delay. Randomized training samples inertia between zero point seven and one point eight, friction between zero point one and zero point six five, and delay from zero through three control steps at every reset. These values stay constant within that episode. The held-out condition uses inertia one point nine five, friction zero point seven five, and four delay steps, or two hundred milliseconds. It also increases position and velocity measurement noise. Both training modes use the same smaller sensor-noise levels.",
-      "point_to": "Compare each held-out value with the corresponding upper training boundary.",
-      "transition": "Those experimental choices map directly onto a small set of functions and saved deliverables."
-    },
-    {
-      "number": 8,
-      "title": "From readable code to auditable deliverables",
-      "cue": "The files connect environment design, actual learning, evaluation, and evidence that another student can check.",
+      "title": "A real robotics application and the takeaway",
+      "cue": "Training across plausible variation may help controllers tolerate changing loads, friction, and actuator delays.",
       "seconds": 40,
-      "script": "The source is organized around a few functions. Joint defines the environment, train creates each PPO policy, roll records an evaluation episode, summarize computes statistics, and figures creates the three requested plots. The trained policy files allow evaluation without repeating learning. Training rewards, episode records, and step records preserve the underlying numerical evidence. Requirements and the README explain installation and limitations. The executable is two hundred eighteen lines because it also includes complete plotting and audit exports. I chose inspectable output over compressing those functions into a difficult-to-read one hundred fifty lines.",
-      "point_to": "Point from each function name to its corresponding model, CSV, or figure output.",
-      "transition": "The first output to inspect is the actual reward history recorded during training."
-    },
-    {
-      "number": 9,
-      "title": "What the recorded training rewards show",
-      "cue": "These are actual training returns; the randomized policy is learning across a harder range of conditions.",
-      "seconds": 45,
-      "script": "This figure uses recorded completed-episode rewards, not constructed curves. Faint lines show individual episodes, and bold lines show a trailing ten-episode average. Both policies improve substantially during the short training budget. The randomized policy generally has lower training returns because its episodes span harder and more varied physical conditions. That does not automatically mean worse transfer, because the two training distributions differ. The meaningful comparison comes when both trained policies face the same evaluation conditions. A rising curve also does not establish full convergence; this is deliberately short CPU training for a classroom-scale experiment.",
-      "point_to": "Identify the faint raw episodes and bold moving averages; compare the training distributions.",
-      "transition": "To compare transfer fairly, I evaluate the saved policies with matched conditions and seeds."
-    },
-    {
-      "number": 10,
-      "title": "Evaluation: 30 matched trials per condition",
-      "cue": "The policies face matching trajectories and initial conditions, and every trial is saved.",
-      "seconds": 50,
-      "script": "Evaluation uses deterministic actions from each trained policy. I run thirty distinct matched seeds in nominal simulation and thirty in the held-out simulation for each policy, giving one hundred twenty episodes total. Separate random streams keep the reference and initial-state sequences matched despite physics randomization. The seeds also align underlying sensor-noise draws, although held-out noise is larger. I report mean episode reward, mean per-episode RMSE, sample standard deviations, and success percentages with Wilson intervals. These thirty evaluation trials vary conditions for already-trained policies; they are not thirty independent policy-training runs.",
-      "point_to": "Trace the two policies by two environments by thirty seeds design.",
-      "transition": "One preselected held-out trial lets us see the tracking behavior behind those aggregate numbers."
-    },
-    {
-      "number": 11,
-      "title": "Held-out tracking: one matched example",
-      "cue": "This preselected trial shows tracking behavior; the full thirty-trial evaluation supports the overall comparison.",
-      "seconds": 50,
-      "script": "Both panels show the same held-out physics and reference trajectory for seed one thousand, chosen before viewing the results. The fixed-physics policy has larger oscillation and overshoot, while the randomized policy follows this reference more closely. Higher inertia reduces acceleration for a given torque, friction changes damping, and delayed targets arrive after the state has changed. Their combined effect can produce lag and overshoot. Importantly, both policies pass the RMSE threshold in this particular trial: approximately zero point three zero eight and zero point one nine five radians. The full evaluation, not this one plot, determines the reported success rates.",
-      "point_to": "Compare identical dashed references, then point to the two displayed RMSE values.",
-      "transition": "The grouped success chart summarizes all thirty paired trials rather than only this example."
-    },
-    {
-      "number": 12,
-      "title": "Observed result: stronger held-out performance",
-      "cue": "Domain randomization helped this trained policy pair in the held-out simulation; it is not a universal guarantee.",
-      "seconds": 55,
-      "script": "Both policies succeed in all thirty nominal trials. In the held-out simulation, the fixed policy succeeds in fourteen of thirty trials, or forty-six point seven percent. The randomized policy succeeds in twenty-nine of thirty, or ninety-six point seven percent. Mean episode RMSE falls from zero point three two nine nine to zero point two two five zero radians. The error bars are ninety-five percent Wilson success intervals. Nominal RMSE is slightly higher for the randomized policy, so the result is not better accuracy everywhere. The supported conclusion is improved held-out robustness for this one trained policy pair.",
-      "point_to": "Point to nominal equality, held-out 14/30 versus 29/30, and the uncertainty bars.",
-      "transition": "I will now replay the saved policies so the code-to-result connection is visible."
-    },
-    {
-      "number": 13,
-      "title": "Live demonstration: replay, compare, repeat",
-      "cue": "I am reloading trained policies, evaluating matching trials, and checking repeatable execution—not training again.",
-      "seconds": 100,
-      "script": "For the live demonstration, I load the two saved model files and run the classroom helper with three trials and two rounds. The helper evaluates both policies in both conditions, then repeats exactly the same seeds to check reproducibility. Three-trial success rates can differ from the thirty-trial figures on the previous slide, so I will not substitute these quick-demo values for the scientific results. The second round is repeated execution, not independent evidence. Each invocation saves new timestamped output without changing the original models or report data. I can use thirty trials and one round to replay the complete evaluation.",
-      "point_to": "Switch to the prepared terminal, run --trials 3 --rounds 2, and show the repeatability check plus PNG.",
-      "transition": "After the replay, I will summarize what was tested and how long the full experiment took."
-    },
-    {
-      "number": 14,
-      "title": "Validation, provenance, and measured runtime",
-      "cue": "The plots are backed by raw records, executable checks, saved models, and measured wall-clock time.",
-      "seconds": 45,
-      "script": "The environment passes Stable-Baselines3's Gymnasium checker in all three physics modes. Eight regression tests cover seeding, dynamics, reward arithmetic, delay, episode handling, and safety limits. Seven artifact audits independently recompute statistics, check bounded controls and image quality, and reload the saved models to reproduce recorded trajectories. The verified full cloud run took twenty-seven point seven two seconds, including imports, both training runs, evaluation, and plotting; training took twenty point four five seconds. A repeat produced identical training and evaluation CSVs. Laptop timing and exact floating-point equality across platforms are not guaranteed.",
-      "point_to": "Point to the checker, 8 + 7 tests, raw-data trail, and full-run runtime label.",
-      "transition": "Successful execution still leaves scientific and engineering limitations that matter for interpretation."
-    },
-    {
-      "number": 15,
-      "title": "Limitations and the next engineering experiment",
-      "cue": "The next step is stronger evidence: more training seeds, classical baselines, and more realistic physics.",
-      "seconds": 55,
-      "script": "This model omits gravity, contacts, body coupling, balance, transmissions, and motor electrical or thermal behavior. Its inertia and noise are not calibrated to a real robot. Only one training seed was used, and evaluation uncertainty does not capture variability from retraining. The observation also hides the full delayed-action queue and physical parameters. Useful next experiments would add independent training seeds, a direct reference-following PD baseline, and one-parameter-at-a-time ablations. A richer simulator such as MuJoCo could add multibody and contact dynamics. Hardware testing would then require calibration, safety supervision, and evidence beyond this demonstration.",
-      "point_to": "Point first to missing physics, then the proposed baseline, seed, and ablation comparisons.",
-      "transition": "My conclusion therefore needs to stay narrower than a claim of general real-world transfer."
-    },
-    {
-      "number": 16,
-      "title": "Takeaway: robustness is an evidence-based claim",
-      "cue": "Randomization improved this simulated transfer test; the data define how far that conclusion can go.",
-      "seconds": 35,
-      "script": "My main takeaway is that the training distribution can matter as much as nominal training reward. In this experiment, varying inertia, friction, and target delay produced a policy with better held-out tracking and a higher success rate, while both policies retained full nominal success. I can demonstrate the comparison repeatedly by reloading the saved models, without confusing replay with new learning. The same workflow also preserves a disappointing result if randomization fails in a future experiment. For a mechatronics application, the value is a transparent path from assumptions to control behavior, numerical evidence, and clearly stated limitations.",
-      "point_to": "Return to the original question and point to the limited, evidence-supported answer.",
-      "transition": "I have the reading connections and full numerical table available for questions."
-    },
-    {
-      "number": 17,
-      "title": "How the four Reading 5 sources connect",
-      "cue": "The readings motivate the engineering choices; this small experiment does not reproduce their complete systems.",
-      "seconds": 30,
-      "script": "Tan and colleagues motivate attention to actuator behavior and randomized training physics in locomotion transfer. Zhao and colleagues place domain randomization within the broader reality-gap literature. Sutton and Barto's Chapter Thirteen explains policy-gradient and actor-critic foundations, while PPO is the later specific algorithm implemented here by Stable-Baselines3. MuJoCo illustrates the richer multibody, contact, constraint, and actuator physics omitted from my small Euler-integrated joint. Together, these sources explain why the experiment is relevant and why its limits matter. I am borrowing a research pattern, not claiming to reproduce a complete quadruped or its hardware performance.",
-      "point_to": "Point to each source's contribution and the full reference links.",
-      "transition": "The final backup slide contains the complete statistics if a numerical detail is useful."
-    },
-    {
-      "number": 18,
-      "title": "Backup: complete verified numerical comparison",
-      "cue": "These are the full thirty-trial statistics; quick replay values are labeled separately.",
-      "seconds": 30,
-      "script": "This table is the numerical reference for the presentation. Each row represents thirty episodes for one policy and one evaluation condition. Reward and RMSE are reported with sample standard deviations, while success includes a count, percentage, and Wilson interval. The randomized policy has slightly higher nominal mean RMSE despite similar reward and identical nominal success, because reward also includes speed and torque costs. Held-out performance improves across the reported tracking and success measures. These numbers come from the original verified evaluation CSVs; a three-trial classroom replay is a separate illustration with a smaller sample.",
-      "point_to": "Use the relevant row and column to answer a specific numerical question.",
-      "transition": "I will return to the relevant slide for any questions about the model, learning method, or evidence."
+      "script": "In a quadruped inspired by Go2 or ANYmal, payload changes can alter effective joint inertia, wear can change friction, and communication can introduce delay. Randomized training is one way to prepare a controller for that variation. My result demonstrates this idea in simulation. It does not establish physical robot transfer, balance, or walking; those require richer models and hardware validation.",
+      "point_to": "Connect inertia to load, friction to wear, and latency to actuator communication. End with the measured held-out improvement and its simulation-only scope.",
+      "transition": "I can rerun the code or return to a graph for questions."
     }
   ],
   "qa": [
     {
-      "question": "Is this an actual physical sim-to-real robot experiment?",
-      "short_answer": "It is transfer between two simulated conditions, not hardware validation.",
-      "answer": "No physical robot was used. The nominal and held-out environments are two configurations of the same simplified joint simulator. Greater inertia, friction, delay, and noise create an unfamiliar simulated approximation of reality. This is useful for demonstrating a transfer hypothesis, but it does not establish real robot performance. Hardware validation would require a calibrated model, reliable sensing and actuation, safety supervision, and controlled physical trials.",
-      "slides": "1, 7, 15"
+      "question": "Is this an actual physical sim-to-real experiment?",
+      "short_answer": "It compares two simulated conditions; no physical robot was tested.",
+      "answer": "The held-out environment is a simulated approximation of unfamiliar reality. It uses greater inertia, friction, delay, and sensor noise, but no calibrated robot or hardware trial. Physical transfer would require a realistic model, reliable sensing, protective limits, and supervised experiments.",
+      "slides": "1, 4, 6"
     },
     {
-      "question": "Why model one joint instead of an entire quadruped?",
-      "short_answer": "One joint makes the learning and control effects inspectable within a short classroom runtime.",
-      "answer": "A one-degree-of-freedom model lets us isolate tracking, PD feedback, delay, inertia, and friction without the extra difficulty of balance or contact planning. It is fast enough to execute and inspect during class. The tradeoff is limited realism: the model cannot evaluate walking, ground contact, full-body coupling, foot placement, or stability of a quadruped. The Go2 and ANYmal connection is an engineering motivation, not a claim that this is their controller.",
-      "slides": "1, 2, 15"
+      "question": "Why would domain randomization help?",
+      "short_answer": "It exposes the policy to varied dynamics during training.",
+      "answer": "Randomization reduces dependence on one exact training model by varying inertia, friction, and delay at each reset. It may encourage a controller that tolerates uncertainty. It is not guaranteed to help: the training range, learning budget, and held-out condition all affect the outcome.",
+      "slides": "1, 4, 5"
     },
     {
-      "question": "Why does the policy output an angle target rather than motor torque?",
-      "short_answer": "Target angles preserve an interpretable PD control structure while separating learned decisions from actuation.",
-      "answer": "The policy chooses a bounded target angle and the PD law converts tracking error and angular velocity into torque. This resembles a useful engineering separation between a learned command layer and a familiar feedback controller. It also makes saturation and delay easy to explain. However, that architecture does not guarantee safety or stability. Actual robot controllers often update their inner loops faster than this demonstration, where policy and PD both use a fifty-millisecond step.",
-      "slides": "3, 4"
+      "question": "Why does PPO choose an angle instead of torque?",
+      "short_answer": "The learned target works through an understandable PD control loop.",
+      "answer": "PPO supplies a bounded target angle, while PD feedback converts the difference between target and measured state into torque. This separates the learned decision from a familiar actuator-control structure. Torque saturation is explicit, but this architecture alone does not prove closed-loop safety or stability.",
+      "slides": "1, 2"
     },
     {
-      "question": "What makes PPO different from policy-gradient methods in general?",
-      "short_answer": "PPO is a specific actor-critic policy-gradient algorithm with a clipped surrogate learning objective.",
-      "answer": "Policy-gradient methods form a broad family that adjusts policy parameters to increase expected return. Sutton and Barto provide those foundations, including actor-critic ideas. PPO is a later algorithm that uses a particular surrogate objective involving action-probability ratios, with clipping intended to discourage excessively large updates. Stable-Baselines3 supplies that implementation here. The demonstration should therefore describe PPO as one policy-gradient method, rather than treating PPO and policy gradients as interchangeable terms.",
-      "slides": "6, 17"
+      "question": "How does PPO differ from general policy-gradient methods?",
+      "short_answer": "PPO is one particular actor\u2013critic policy-gradient algorithm.",
+      "answer": "Policy-gradient methods adjust policy parameters to improve expected return. PPO is a specific method that uses a clipped surrogate objective to discourage overly large policy updates, together with a learned value function. Sutton and Barto provide the broader foundations rather than this particular implementation.",
+      "slides": "2, 5"
     },
     {
-      "question": "Does PPO clipping limit the joint torque?",
-      "short_answer": "No. PPO objective clipping and actuator torque saturation are separate mechanisms.",
-      "answer": "PPO clipping operates during learning on a ratio of action probabilities under the updated and previous policies. It is intended to restrain the policy update. Torque saturation is a separate physical-model rule: the PD command is clipped to plus or minus twelve newton metres at each step. The policy target is also bounded to plus or minus one radian. These three bounds have different roles and should not be described as the same safety mechanism.",
-      "slides": "3, 6"
+      "question": "What do these results actually establish?",
+      "short_answer": "Randomization helped this policy pair in one held-out simulated condition.",
+      "answer": "The randomized policy achieved 29/30 held-out successes versus 14/30 for the fixed policy, with lower mean RMSE. Both had 30/30 nominal success. Only one training seed per policy was used, so this is a measured case study rather than a general superiority or hardware-transfer claim.",
+      "slides": "3, 4, 6"
     },
     {
-      "question": "Is the observation fully Markov when actuator delay is present?",
-      "short_answer": "Not fully; delayed-command history and randomized physical parameters are partly hidden.",
-      "answer": "The observation contains noisy joint state, the current and preview reference, and the latest target, but not the entire pending command queue. It also omits the sampled inertia, friction, and delay. As a result, identical observations can correspond to different hidden dynamics or queued commands. This is a small partially observed control problem. Adding action-observation history, explicit parameter estimates, or a recurrent policy would be reasonable extensions; the present memoryless PPO comparison keeps both policies consistent.",
-      "slides": "4, 7, 15"
-    },
-    {
-      "question": "Is providing the future reference unfair or a form of cheating?",
-      "short_answer": "The future desired trajectory is known and supplied equally to both policies; future measured state is not supplied.",
-      "answer": "The reference is a prescribed sinusoid, so its value one hundred fifty milliseconds ahead is available in advance. Giving a controller preview of a known desired command is different from revealing a future sensor measurement or future realized joint state. Both policies receive the same observation format and trajectory information. The limitation is the application assumption: this setup represents planned joint tracking, not an unknown or arbitrary reference that arrives without preview.",
-      "slides": "4, 6"
-    },
-    {
-      "question": "Why can delay cause oscillation, and is this controller proven stable?",
-      "short_answer": "Delay applies old targets to a changing state; the experiment does not prove closed-loop stability.",
-      "answer": "The queue holds a target while the joint continues to move, so a correction may arrive after the state has changed substantially. That can increase lag or overshoot and interact with the feedback gains. The chosen gains, saturation, sampled dynamics, and safety limits were tested through the reported episodes, but successful episodes are not a formal stability proof. A rigorous analysis would need the delayed closed-loop dynamics and a clearly specified region of operation.",
-      "slides": "3, 7, 11, 15"
-    },
-    {
-      "question": "What is the difference between changing inertia and changing friction?",
-      "short_answer": "Inertia scales acceleration; viscous friction produces velocity-proportional damping.",
-      "answer": "The modeled acceleration is net torque divided by joint inertia. A larger inertia therefore reduces acceleration for the same applied torque. Viscous friction subtracts a torque proportional to velocity, changing damping and the effort required during motion. Their effects are coupled with the PD gains and delay. Since all held-out changes are applied together, the current comparison measures their combined effect; separate ablations would be needed to attribute an outcome to a particular parameter.",
-      "slides": "2, 4, 7, 11"
-    },
-    {
-      "question": "Why was success defined as RMSE below 0.32 rad?",
-      "short_answer": "It preserves the original predeclared educational threshold rather than tuning the criterion after seeing the results.",
-      "answer": "The threshold was retained from the uploaded program and written into the experiment plan before revised training. Success also requires the full five-second episode and no safety termination. Zero point three two radians is about eighteen point three degrees, so it is a generous educational tolerance rather than a hardware safety or precision standard. A real application would derive the limit from task requirements. Changing it after examining results would weaken the comparison.",
-      "slides": "5, 10, 12"
-    },
-    {
-      "question": "What do the 95% success intervals tell us?",
-      "short_answer": "They describe evaluation success uncertainty for these trained policies, not uncertainty across independent training runs.",
-      "answer": "The plotted intervals are Wilson binomial intervals based on thirty successes or failures per policy and condition. They show that an observed percentage from a finite number of evaluation episodes has uncertainty. They do not establish a ninety-five percent probability of hardware success, and they do not incorporate the variability of training a new policy from another seed. Because policies share paired evaluation seeds, a direct confidence interval for their difference would also need an appropriate paired analysis.",
-      "slides": "10, 12, 18"
-    },
-    {
-      "question": "Do thirty evaluation seeds mean the result was reproduced across thirty training runs?",
-      "short_answer": "No. There is one training seed per policy and thirty distinct evaluation trials per condition.",
-      "answer": "Both policies were trained with seed forty-two. The thirty evaluation seeds vary reference amplitude, frequency, phase, initial angle, and sensor-noise realization for those already-trained models. They test trial-to-trial performance, not variability from learning again. Repeating the saved-model demo also does not add training seeds. The next stronger experiment would train several independent policy pairs and summarize held-out performance across those pairs as well as across evaluation trials.",
-      "slides": "6, 10, 13, 15"
-    },
-    {
-      "question": "Why can nominal reward improve while nominal RMSE becomes slightly worse?",
-      "short_answer": "Reward includes velocity and torque costs as well as tracking error.",
-      "answer": "Mean episode reward is not simply the negative of reported mean RMSE. It sums squared error, squared velocity, and squared torque penalties over time, while the table reports the mean of each episode's RMSE. A policy can therefore trade a small amount of tracking accuracy for smoother or less effortful motion and obtain a slightly higher return. Both nominal success rates are one hundred percent, so the small nominal difference should not be overstated.",
-      "slides": "5, 12, 18"
-    },
-    {
-      "question": "What exactly is randomized, and where does the sensor noise enter?",
-      "short_answer": "Training randomizes inertia, friction, and delay at resets; noisy state feeds both policy and PD.",
-      "answer": "The randomized training environment draws inertia scaling, viscous friction, and an integer command delay at every episode reset, then holds them constant during that episode. Both training modes use the same small Gaussian position and velocity noise levels. The held-out environment uses larger noise. A noisy state measurement enters both the policy observation and PD feedback, while dynamics and scoring retain the simulator's true state. This distinction prevents confusing measurement quality with ground-truth tracking error.",
-      "slides": "3, 4, 7"
-    },
-    {
-      "question": "Why use semi-implicit Euler, and what does the fifty-millisecond timestep imply?",
-      "short_answer": "It is simple and explicit to inspect, but timestep sensitivity and physical fidelity remain limitations.",
-      "answer": "Semi-implicit Euler first updates angular velocity using acceleration, then updates position using that new velocity. It is easy to implement and explain for this small demonstration. The fifty-millisecond timestep means twenty updates per simulated second for both policy and PD calculations. That is a modeling choice, not a claim of realistic motor-controller bandwidth. A stronger simulation study should examine timestep sensitivity and compare against smaller steps or a more capable physics engine.",
-      "slides": "3, 4, 15"
-    },
-    {
-      "question": "Could an ordinary PD controller solve this task without reinforcement learning?",
-      "short_answer": "Possibly; a direct reference-following PD baseline is an important missing comparison.",
-      "answer": "A tuned conventional controller might track this simple sinusoidal joint task well. The current experiment compares fixed-physics PPO training with randomized-physics PPO training, while both use the same inner PD law. It does not compare learned control against a hand-designed baseline and therefore does not prove that RL is needed. Adding a policy-free PD controller, a robustly tuned version, and perhaps a model-based controller would clarify whether learning adds value beyond this distributional comparison.",
-      "slides": "3, 6, 15"
-    },
-    {
-      "question": "Do repeated classroom rounds increase the scientific sample size?",
-      "short_answer": "No. The repeated rounds reuse the same seeds to demonstrate reproducible execution.",
-      "answer": "The quick helper uses three distinct seeds per policy and condition, then repeats those same seeds in its second round. Matching records demonstrate repeatability for the loaded policies, but repeated identical trials are not independent new evidence. Three-trial percentages may also differ noticeably from the thirty-trial project results. For the scientific comparison, retain the original thirty distinct matched trials. To replay that design, use thirty trials and one round rather than combining repeated quick-demo rounds.",
-      "slides": "10, 12, 13"
-    },
-    {
-      "question": "How can I repeat the demo or show fresh training without losing the report results?",
-      "short_answer": "Use the replay helper repeatedly; perform full retraining in a disposable project copy.",
-      "answer": "The classroom helper loads saved policies and writes each invocation into a new timestamped demo_runs directory. It leaves the root models and report data unchanged. Use three trials and two rounds for a short reproducibility demonstration, or thirty trials and one round for the full evaluation design. The original reading5_sim2real_ppo.py command retrains both policies and replaces its root outputs, so run that version in a separate disposable copy when preserving the prepared report evidence.",
-      "slides": "8, 13, 14"
-    },
-    {
-      "question": "What should I do if VS Code reports missing gymnasium or an invalid interpreter path?",
-      "short_answer": "Open the project folder and select its Python 3.12 virtual-environment executable using the full path.",
-      "answer": "The class package expects its pinned dependencies in a Python three point twelve environment. A Python three point fourteen selection or another interpreter can report missing packages even after installation elsewhere. Open the actual project folder in VS Code, select its .venv Scripts python.exe using the full Windows path, and use that same executable for pip and execution. Before class, verify imports and run the helper. If execution fails, label the prepared figures as saved evidence rather than claiming a live run.",
-      "slides": "8, 13, 14"
-    },
-    {
-      "question": "How does this relate to MuJoCo and a future real robot experiment?",
-      "short_answer": "MuJoCo can add richer physics; hardware transfer still requires calibration and independent validation.",
-      "answer": "MuJoCo provides multibody dynamics, contacts, constraints, and actuator models that the one-joint Euler simulation omits. It could support the next stage of a more realistic learning experiment, including body interaction and foot contact. That upgrade would not automatically establish hardware transfer. Tan's work motivates careful actuation and randomization, while Zhao's survey explains broader reality-gap strategies. A physical deployment would still require calibrated uncertainty ranges, sensing and latency measurements, protective limits, and supervised validation.",
-      "slides": "15, 17"
+      "question": "How can I repeat the classroom demonstration?",
+      "short_answer": "Rerun the program, or replay saved policies without retraining.",
+      "answer": "The main program can be rerun and regenerates its outputs. For evaluation without retraining or replacing those files, use classroom/demo.py --trials 30 --rounds 1. Each helper launch gets a new folder. Reusing seeds checks execution repeatability, not additional independent evidence.",
+      "slides": "2, 6"
     }
   ]
 }

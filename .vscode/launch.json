@@ -6,7 +6,7 @@
       "type": "debugpy",
       "request": "launch",
       "program": "${workspaceFolder}/classroom/demo.py",
-      "args": ["--trials", "3", "--rounds", "2", "--open-figure"],
+      "args": ["--trials", "30", "--rounds", "1", "--open-figure"],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "justMyCode": true

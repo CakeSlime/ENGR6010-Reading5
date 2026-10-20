@@ -8,8 +8,8 @@ quadrupedal locomotion controller or a physical robot experiment. No robot,
 GPU, MuJoCo installation, or external service is required.
 
 Classroom materials are in [classroom/README_CLASSROOM.md](classroom/README_CLASSROOM.md):
-an editable 18-slide PowerPoint with speaker notes, a Word/PDF presenter script
-with 20 Q&As, and a repeatable saved-model demonstration that preserves the
+an editable six-slide PowerPoint with speaker notes, a short Word/PDF presenter
+script with six Q&As, and a saved-model demonstration that preserves the
 original experiment outputs.
 
 ## Install and run

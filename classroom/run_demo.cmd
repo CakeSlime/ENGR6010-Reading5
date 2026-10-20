@@ -9,7 +9,7 @@ if not exist "%DEMO_PYTHON%" (
     pause
     exit /b 1
 )
-"%DEMO_PYTHON%" "%~dp0demo.py" --trials 3 --rounds 2 --open-figure
+"%DEMO_PYTHON%" "%~dp0demo.py" --trials 30 --rounds 1 --open-figure
 set "DEMO_EXIT=%ERRORLEVEL%"
 echo.
 if not "%DEMO_EXIT%"=="0" echo Demo stopped with an error. Read the message above.

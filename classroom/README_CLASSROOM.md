@@ -1,94 +1,63 @@
-# Reading 5 classroom presentation
+# Short Reading 5 classroom demonstration
 
-Open these files directly in PowerPoint and Word, or use the PDF copies:
+Use these current files:
 
-| File | Use |
-|---|---|
-| `Reading5_Classroom_Presentation.pptx` | 18 editable widescreen slides; short SAY cues on every slide and full scripts in speaker notes |
-| `Reading5_Classroom_Presentation.pdf` | Portable slide handout / projector fallback |
-| `Reading5_Presenter_Guide.docx` | Read-aloud slide scripts, stage directions, transitions, Windows setup, demo runbook, and 20 graduate-level Q&As |
-| `Reading5_Presenter_Guide.pdf` | Printable presenter copy |
+- **Reading5_Classroom_Presentation.pptx** — six editable slides, short speaking cues, and full speaker notes.
+- **Reading5_Classroom_Presentation.pdf** — portable slide copy.
+- **Reading5_Presenter_Guide.docx / .pdf** — short read-aloud scripts, the run sequence, and six likely Q&As.
 
-The core 16-slide talk is timed at approximately **14 minutes**, including a
-short live replay. Slides 17–18 provide references and backup numerical data.
-Allow additional time for discussion. The student voice is a suggested script;
-adapt the wording and introduce yourself by name when presenting.
+The presentation is approximately **5–6 minutes**, including running the code.
+The six slides cover the basic idea, live execution, tracking graph, numerical
+results, the four readings, and a quadruped-joint application.
 
-The deck uses the verified SB3 experiment in the project CSVs. It reports
-14/30 fixed versus 29/30 randomized held-out successes and explicitly limits
-that finding to this single trained policy pair and synthetic test condition.
-The illustrated seed-1000 tracking trial passes for **both** policies.
+## Run the code in class
 
-## Repeat the code demonstration
+Open the complete project folder in VS Code and use its working Python 3.12
+.venv interpreter. From the project folder:
 
-Keep this `classroom` directory inside the complete project, next to the root
-source, `policy_fixed.zip`, and `policy_random.zip`. If your original local
-project already runs, copy this `classroom` folder into that project to reuse
-its installed `.venv`. The PowerPoint and guide can be opened independently.
+    .\.venv\Scripts\python.exe reading5_sim2real_ppo.py
 
-From the project folder in Windows PowerShell:
+This trains both PPO agents, evaluates 30 matched trials per policy and
+condition, prints results, and generates all three original PNG graphs.
+Briefly point to Joint.step(), train(), and main(). Open the training graph
+from the generated files; slides 3–4 provide readable tracking and success
+graphs. The verified cloud run took 27.72 s; local timings vary. Rerunning
+this command replaces its generated experiment files and saved models.
 
-```powershell
-.\.venv\Scripts\python.exe classroom\demo.py --trials 3 --rounds 2 --open-figure
-```
+## Optional quick replay for repeated demonstrations
 
-Or double-click **`classroom\run_demo.cmd`**. In VS Code, open the whole project
-folder, select its Python 3.12 `.venv` interpreter, then choose **Reading 5:
-classroom replay (saved models)** in Run and Debug.
+If you want to evaluate the saved models without retraining:
 
-The helper reloads the trained models, evaluates seeds 1000–1002 twice, and
-checks that the two rounds match exactly. It saves each launch to a **new
-timestamped `classroom/demo_runs/` folder**, preserving the original experiment.
-It performs inference/evaluation; it never calls PPO learning. After installing
-dependencies, no Internet connection, GPU, or robot hardware is needed.
+    .\.venv\Scripts\python.exe classroom\demo.py --trials 30 --rounds 1 --open-figure
 
-Say: “This is saved-model replay. Repeated seeds demonstrate repeatable
-execution; they do not add independent experimental trials.”
+Or double-click classroom\run_demo.cmd, which now uses this full 30-seed
+replay. The VS Code **Reading 5: classroom replay (saved models)** launch
+configuration uses the same arguments. Outputs go to a new timestamped
+classroom/demo_runs/ folder, preserving the original results. Say that this
+is saved-model evaluation, rather than training. The full Python replay
+was tested in 9.32 s and matched the original evaluation CSVs exactly.
+The Windows launcher/image viewer were not executed on the Linux cloud.
 
-The short subset produces held-out success of **1/3 fixed and 2/3 randomized**
-in the verified demo. These three-trial counts are distinct from the original
-30-trial results shown on the slides. To replay the full evaluation design:
+## Keep the explanation accurate
 
-```powershell
-.\.venv\Scripts\python.exe classroom\demo.py --trials 30 --rounds 1
-```
+The slide results are from the verified cloud experiment: held-out success
+14/30 fixed versus 29/30 randomized; mean RMSE 0.3299 versus 0.2250 rad.
+Both policies achieve 100% nominal success and both pass the particular
+seed-1000 trial shown in the tracking graph. The result concerns one joint,
+one training seed, and simulated transfer; it does not establish performance
+on a physical Go2 or ANYmal. Sources are linked in slide notes and the guide.
 
-See [README_DEMO.md](README_DEMO.md) for full instructions and the separate
-retraining command. The original experiment command retrains models and
-replaces root experiment outputs; use a disposable project copy if presenting
-that operation. If a live run fails, use the embedded figures and identify
-them honestly as saved outputs of the verified run.
+If a live run fails, use the saved graphs and identify them as previously
+executed results. See README_DEMO.md for additional replay options and the
+root README.md for installation. If you already have a working project,
+copy this classroom folder into it to reuse the installed .venv.
 
-## Validation and timing
+## Rebuild the presentation and guide
 
-The Python helper was actually executed on the cloud CPU. The initial quick
-demo took 7.06 s, a post-cleanup quick replay took 5.82 s, and full evaluation
-replay took 9.32 s, including imports. Full replay produced byte-identical
-episode, step, and aggregate CSVs to the original evaluation. Timings vary
-on other machines. The Windows launcher and desktop image-viewer opening
-were provided but were not executed on this Linux cloud machine.
+    .\.venv\Scripts\python.exe -m pip install -r classroom\requirements_presentation.txt
+    .\.venv\Scripts\python.exe classroom\build_materials.py
 
-`demo_validation.json` records the tests, timings, hashes, and PNG checks.
-`materials_validation.json` records document structure and rendering checks.
-The deck and guide were exported through LibreOffice and visually inspected.
-The existing experiment's 8 environment tests and 7 artifact audits remain
-documented in the project root; the main experiment source and models were
-not changed to create these materials.
-
-## Rebuild the editable materials
-
-Optional build dependencies are separate from the experiment requirements:
-
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r classroom\requirements_presentation.txt
-.\.venv\Scripts\python.exe classroom\build_materials.py
-```
-
-`presenter_content.json` holds the speaking text and Q&A. The builder reads
-the actual project CSVs, draws presentation-sized versions of the three
-figures, writes the PowerPoint with notes, and writes the Word guide.
-It does not train or alter the experiment. Add `--pdf` when LibreOffice's
-`soffice` command is installed and on PATH; otherwise export PDFs using
-PowerPoint and Word. If rebuilding from different experiment data, review
-the presenter text and hard-coded narrative values before presenting:
-the current narrative intentionally describes the verified supplied run.
+Add --pdf when LibreOffice's soffice command is on PATH; otherwise export
+from PowerPoint and Word. The builder reads actual CSV data and uses
+presenter_content.json for the six scripts and Q&A. If rebuilding after a
+new experiment, also review the narrative numbers before presenting.
